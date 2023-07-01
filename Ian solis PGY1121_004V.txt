@@ -1,0 +1,75 @@
+from sre_constants import CATEGORY_SPACE
+def agregar_elemento(vehiculo, patente, fila, columna, elemento):
+    vehiculo[patente][fila][columna] = elemento
+
+def buscar_elemento(vehiculo, elemento):
+    for patente in vehiculo:
+        for fila in patente:
+            if elemento in fila:
+                return True
+    return False
+
+def imprimir_certificados(vehiculo):
+      for patente in vehiculo:
+        for fila in patente:
+            for elemento in fila:
+                print(elemento, end=' ')
+            print()
+        print()
+
+def crear_vehiculo(patente, filas, columnas):
+    vehiculo = []
+    for _ in range(patente):
+        patente = []
+        for _ in range(filas):
+            fila = []
+            for _ in range(columnas):
+                fila.append(None)
+            patente.append(fila)
+        vehiculo.append(patente)
+    return vehiculo
+
+def menu():
+    vehiculo = []
+    while True:
+        print("\n---- Auto Seguro ----")
+        print("1. Ingrese datos del vehiculo")
+        print("2. Buscar su auto")
+        print("3. Imprimir certificados")
+        print("4. Salir")
+        opcion = input("Selecciona una opción: ")
+
+        if opcion == "1":
+            patente = int(input("Ingrese la patente de su vehiculo: "))
+            fila = int(input("Ingrese la marca de su vehiculo: "))
+            columna = int(input("Ingrese el  precio de su vehiculo: "))
+            elemento = input("Ingrese la fecha de registro de su vehiculo: ")
+            agregar_elemento(vehiculo, patente, fila, columna, elemento)
+            print("vehiculo agregado corectamente.")
+
+        elif opcion == "2":
+            elemento_buscar = input("Ingrese la pantente de su vehiculo: ")
+            encontrado = buscar_elemento(vehiculo, elemento_buscar)
+            if encontrado:
+                print("El vehiculo se encontro.")
+                print(encontrado)
+            else:
+                print("El vehiculo no se encuentra en los registros.")
+
+        elif opcion == "3":
+            imprimir_capas(vehiculo)
+
+        elif opcion == "4":
+            print("Saliendo del programa...")
+            break
+
+        else:
+            print("Opción inválida. Por favor, seleccione una opción válida.")
+
+        if not vehiculo:
+            patente = int(input("Ingrese la patente: "))
+            filas = int(input("Ingrese la marca de su vehiculo: "))
+            columnas = int(input("Ingrese el número de columna: "))
+            vehiculo = crear_cubo(patente, filas, columnas)
+
+menu()
